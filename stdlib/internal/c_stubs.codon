@@ -601,7 +601,7 @@ def fgets(a: cobj, b: int, c: cobj) -> cobj:
 
 @nocapture
 @C
-def fflush(a: cobj) -> None:
+def fflush(a: cobj) -> cobj:
     pass
 
 @nocapture
