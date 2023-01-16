@@ -124,22 +124,6 @@ if(APPLE AND APPLE_ARM)
             ${CMAKE_BINARY_DIR})
 endif()
 
-if (BUILD_WASM)
-include(ExternalProject)
-ExternalProject_Add(
-   runtime-wasi-project
-   SOURCE_DIR ${CMAKE_SOURCE_DIR}/targets/wasm
-   BINARY_DIR ${CMAKE_BINARY_DIR}/targets/wasm
-   CMAKE_ARGS -DCMAKE_C_COMPILER=${WASI_SDK_PREFIX}/bin/clang -DCMAKE_CXX_COMPILER=${WASI_SDK_PREFIX}/bin/clang++ -DWASI_SDK_PREFIX=${WASI_SDK_PREFIX} -DLLVM_BUILD_DIR=${LLVM_BUILD_DIR} -DCMAKE_TOOLCHAIN_FILE=${WASI_SDK_PREFIX}/share/cmake/wasi-sdk.cmake
-   UPDATE_COMMAND ""
-   PATCH_COMMAND ""
-   TEST_COMMAND ""
-   INSTALL_COMMAND ""
-   BUILD_ALWAYS 1
-)
-endif()
-
-add_dependencies(runtime-wasi-project codon)
 # Codon compiler library
 include_directories(${LLVM_INCLUDE_DIRS})
 add_definitions(${LLVM_DEFINITIONS})
@@ -482,3 +466,20 @@ install(DIRECTORY ${CMAKE_BINARY_DIR}/include/codon DESTINATION include)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/stdlib DESTINATION lib/codon)
 install(DIRECTORY ${CMAKE_SOURCE_DIR}/extra/python/ DESTINATION python)
 install(DIRECTORY DESTINATION lib/codon/plugins)
+
+if (BUILD_WASM)
+include(ExternalProject)
+ExternalProject_Add(
+   runtime-wasi-project
+   SOURCE_DIR ${CMAKE_SOURCE_DIR}/targets/wasm
+   BINARY_DIR ${CMAKE_BINARY_DIR}/targets/wasm
+   CMAKE_ARGS -DCMAKE_C_COMPILER=${WASI_SDK_PREFIX}/bin/clang -DCMAKE_CXX_COMPILER=${WASI_SDK_PREFIX}/bin/clang++ -DWASI_SDK_PREFIX=${WASI_SDK_PREFIX} -DLLVM_BUILD_DIR=${LLVM_BUILD_DIR} -DCMAKE_TOOLCHAIN_FILE=${WASI_SDK_PREFIX}/share/cmake/wasi-sdk.cmake
+   UPDATE_COMMAND ""
+   PATCH_COMMAND ""
+   TEST_COMMAND ""
+   INSTALL_COMMAND ""
+   BUILD_ALWAYS 1
+)
+add_dependencies(runtime-wasi-project codon)
+
+endif()
