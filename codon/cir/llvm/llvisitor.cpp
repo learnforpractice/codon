@@ -211,9 +211,12 @@ llvm::Function *LLVMVisitor::getFunc(const Func *func) {
 
 std::unique_ptr<llvm::Module> LLVMVisitor::makeModule(llvm::LLVMContext &context,
                                                       const SrcInfo *src) {
+  auto builder = llvm::EngineBuilder();
+  builder.setMArch(llvm::codegen::getMArch());
+
   auto M = std::make_unique<llvm::Module>("codon", context);
-  M->setTargetTriple(llvm::EngineBuilder().selectTarget()->getTargetTriple().str());
-  M->setDataLayout(llvm::EngineBuilder().selectTarget()->createDataLayout());
+  M->setTargetTriple(builder.selectTarget()->getTargetTriple().str());
+  M->setDataLayout(builder.selectTarget()->createDataLayout());
   B = std::make_unique<llvm::IRBuilder<>>(context);
 
   auto *srcInfo = src ? src : getDefaultSrcInfo();
