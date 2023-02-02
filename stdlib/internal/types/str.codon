@@ -1,9 +1,16 @@
 # Copyright (C) 2022-2023 Exaloop Inc. <https://exaloop.io>
 
-@pure
-@C
-def strlen(a: cobj) -> int:
-    pass
+# @pure
+# @C
+# def strlen(a: cobj) -> int:
+#     pass
+
+@export
+def __strlen(a: cobj) -> int:
+    n = 0
+    while a[n] != byte(0):
+        n += 1
+    return n
 
 @extend
 class str:
@@ -79,7 +86,7 @@ class str:
         return p
 
     def from_ptr(t: cobj) -> str:
-        n = strlen(t)
+        n = __strlen(t)
         p = Ptr[byte](n)
         str.memcpy(p, t, n)
         return str(p, n)

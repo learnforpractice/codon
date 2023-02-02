@@ -1,3 +1,5 @@
+Please refer to [Building codon with WebAssembly Support](./targets/wasm/README.md) for instructions on how to compile the codon source code to WebAssembly
+
 <p align="center">
  <img src="docs/img/codon.png?raw=true" width="600" alt="Codon"/>
 </p>

@@ -806,7 +806,7 @@ void LLVMVisitor::visit(const Module *x) {
   auto *initFunc = llvm::cast<llvm::Function>(
       M->getOrInsertFunction("seq_init", B->getVoidTy(), B->getInt32Ty()).getCallee());
   auto *strlenFunc = llvm::cast<llvm::Function>(
-      M->getOrInsertFunction("strlen", B->getInt64Ty(), B->getInt8PtrTy()).getCallee());
+      M->getOrInsertFunction("__strlen", B->getInt64Ty(), B->getInt8PtrTy()).getCallee());
 
   auto *canonicalMainFunc = llvm::cast<llvm::Function>(
       M->getOrInsertFunction("main", B->getInt32Ty(), B->getInt32Ty(),
