@@ -7,6 +7,7 @@ In the codon source directory, run the following command to build LLVM:
 git clone --depth 1 -b codon https://github.com/exaloop/llvm-project
 cmake -S llvm-project/llvm -B llvm-project/build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
+    -DLLVM_ENABLE_PROJECTS="clang;lld" \
     -DLLVM_INCLUDE_TESTS=OFF \
     -DLLVM_ENABLE_RTTI=ON \
     -DLLVM_ENABLE_ZLIB=OFF \
