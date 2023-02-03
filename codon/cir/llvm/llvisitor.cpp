@@ -213,10 +213,13 @@ std::unique_ptr<llvm::Module> LLVMVisitor::makeModule(llvm::LLVMContext &context
                                                       const SrcInfo *src) {
   auto builder = llvm::EngineBuilder();
   builder.setMArch(llvm::codegen::getMArch());
+  builder.setMCPU(llvm::codegen::getCPUStr());
+  builder.setMAttrs(llvm::codegen::getFeatureList());
 
+  auto target = builder.selectTarget();
   auto M = std::make_unique<llvm::Module>("codon", context);
-  M->setTargetTriple(builder.selectTarget()->getTargetTriple().str());
-  M->setDataLayout(builder.selectTarget()->createDataLayout());
+  M->setTargetTriple(target->getTargetTriple().str());
+  M->setDataLayout(target->createDataLayout());
   B = std::make_unique<llvm::IRBuilder<>>(context);
 
   auto *srcInfo = src ? src : getDefaultSrcInfo();
