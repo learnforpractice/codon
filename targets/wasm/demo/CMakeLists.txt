@@ -15,7 +15,7 @@ set(CMAKE_CXX_FLAGS "-v ${CMAKE_CXX_FLAGS} -fno-exceptions -std=c++17")
 add_custom_target( hello.o ALL
     COMMAND codon build --release --march=wasm32 --obj -o ${CMAKE_CURRENT_BINARY_DIR}/hello.o ${CMAKE_CURRENT_SOURCE_DIR}/hello.codon
     DEPENDS ${CMAKE_CURRENT_SOURCE_DIR}/hello.codon
-    COMMENT "Generating hello.wasm")
+    COMMENT "Generating hello.o")
 
-target_link_libraries(demo PRIVATE codonrt ${CMAKE_CURRENT_BINARY_DIR}/hello.o)
+target_link_libraries(demo PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/hello.o codonrt)
 add_dependencies(demo hello.o)

@@ -24,8 +24,7 @@ b = B(1, 2)
 b.say_hello()
 
 a: A = b
-# crash
-# a.say_hello()
+a.say_hello()
 
 @export
 def codon_main(argc: Int[32], argv: Ptr[Ptr[byte]]) -> Int[32]:

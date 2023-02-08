@@ -27,7 +27,6 @@ cmake -S . -B build -G Ninja \
     -DBUILD_WASM=TRUE \
     -DWASI_SDK_PREFIX=path/to/wasi-sdk \
     -DCMAKE_BUILD_TYPE=Release \
-    -DLLVM_BUILD_DIR=path/to/llvm-project/build \
     -DLLVM_DIR=path/to/llvm-project/build/lib/cmake/llvm \
     -DCMAKE_C_COMPILER=clang \
     -DCMAKE_CXX_COMPILER=clang++
