@@ -1,16 +1,13 @@
 # Copyright (C) 2022-2023 Exaloop Inc. <https://exaloop.io>
 
-# @pure
-# @C
-# def strlen(a: cobj) -> int:
-#     pass
+@pure
+@C
+def strlen(a: cobj) -> cobj:
+    pass
 
 @export
 def __strlen(a: cobj) -> int:
-    n = 0
-    while a[n] != byte(0):
-        n += 1
-    return n
+    return int(strlen(a))
 
 @extend
 class str:
